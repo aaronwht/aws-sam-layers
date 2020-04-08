@@ -2,9 +2,8 @@
 const utils = require("/opt/nodejs/helper.js");
 
 module.exports.handler = async (event, context) => {
-  
-  const  token = utils.getToken();
-  
+  const token = utils.getToken();
+
   return {
     headers: {
       "Access-Control-Allow-Origin": "*",
