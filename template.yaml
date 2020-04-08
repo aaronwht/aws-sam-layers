@@ -15,10 +15,10 @@ Resources:
   DependencyLayers:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      LayerName: DependencyLayers-dependencies
+      LayerName: dependencies
       ContentUri: dependencies/
       CompatibleRuntimes:
-        - node12.x
+        - nodejs12.x
       RetentionPolicy: Retain
   Index:
     Type: AWS::Serverless::Function
@@ -31,6 +31,3 @@ Resources:
           Properties:
             Path: /
             Method: get
-Outputs:
-  DependencyLayers:
-    Value: !GetAtt DependencyLayers.Arn
