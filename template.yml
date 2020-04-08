@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Globals:
+  Api:
+    Cors:
+      AllowMethods: "'OPTIONS,POST,GET'"
+      AllowHeaders: "'*'"
+      AllowOrigin: "'*'"
+  Function:
+    Runtime: nodejs12.x
+    Timeout: 5
+    Layers:
+      - !Ref DependencyLayers
+Resources:
+  DependencyLayers:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: DependencyLayers-dependencies
+      ContentUri: dependencies/
+      CompatibleRuntimes:
+        - node12.x
+      RetentionPolicy: Retain
+  Index:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      CodeUri: extend/
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+Outputs:
+  DependencyLayers:
+    Value: !GetAtt DependencyLayers.Arn
